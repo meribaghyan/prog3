@@ -1,11 +1,12 @@
-class Mard {
+class Mard extends LivingCreature{
   constructor(x, y, index) {
-    this.x = x;
+    super(x, y, index);
+    // this.x = x;
 
-    this.y = y;
-    this.index = index;
+    // this.y = y;
+    // this.index = index;
     this.energy = 5;
-    this.directions = [];
+    // this.directions = [];
   }
   getNewCoordinates() {
     this.directions = [
@@ -28,24 +29,25 @@ class Mard {
   }
   chooseCell(character, character1, character2) {
     this.getNewCoordinates();
-    var found = [];
+    return super.chooseCell(character, character1, character2 );
+    // var found = [];
 
-    for (var i in this.directions) {
-      var x = this.directions[i][0];
+    // for (var i in this.directions) {
+    //   var x = this.directions[i][0];
 
-      var y = this.directions[i][1];
-      if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-        if (
-          matrix[y][x] == character ||
-          matrix[y][x] == character1 ||
-          matrix[y][x] == character2
-        ) {
-          found.push(this.directions[i]);
-        }
-      }
-    }
+    //   var y = this.directions[i][1];
+    //   if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+    //     if (
+    //       matrix[y][x] == character ||
+    //       matrix[y][x] == character1 ||
+    //       matrix[y][x] == character2
+    //     ) {
+    //       found.push(this.directions[i]);
+    //     }
+    //   }
+    // }
 
-    return found;
+    // return found;
   }
 
   die() {
