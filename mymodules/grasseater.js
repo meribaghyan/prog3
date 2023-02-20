@@ -2,12 +2,12 @@ class Grasseater extends LivingCreature{
 
     constructor(x, y, index) {
 super(x, y, index);
-        // this.x = x;
+        //// this.x = x;
 
-        // this.y = y;
-        // this.index = index;
+       // // this.y = y;
+       // // this.index = index;
         this.energy = 8;
-        // this.directions = [];
+        //// this.directions = [];
     }
     getNewCoordinates() {
 
@@ -35,7 +35,7 @@ super(x, y, index);
     chooseCell(character) {
         this.getNewCoordinates();
         return super.chooseCell(character);
-        // var found = [];
+       ///////// // var found = [];
 
         // for (var i in this.directions) {
 
@@ -52,7 +52,7 @@ super(x, y, index);
         //     }
         // }
 
-        // return found;
+        ////////// return found;
 
 
     }
