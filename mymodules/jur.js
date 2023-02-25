@@ -1,4 +1,5 @@
-class Jur extends LivingCreature {
+var LivingCreature = require('./LivingCreature');
+module.exports =class Jur extends LivingCreature {
   constructor(x, y, index) {
     super(x, y, index);
     // this.x = x;
