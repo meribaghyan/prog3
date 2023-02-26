@@ -1,5 +1,5 @@
 var LivingCreature = require('./LivingCreature');
-module.exports =class Predator extends LivingCreature{
+module.exports = class Predator extends LivingCreature {
   constructor(x, y, index) {
     super(x, y, index);
     // this.x = x;
@@ -59,9 +59,9 @@ module.exports =class Predator extends LivingCreature{
 
   move() {
     if (this.energy > 0) {
-        this.energy--
-        var result = this.chooseCell(0);
-      var newCell = random(result);
+      this.energy--
+      var result = this.chooseCell(0);
+      var newCell = Math.floor(Math.random() * result);;
 
       if (newCell) {
         let x = newCell[0];
@@ -77,7 +77,7 @@ module.exports =class Predator extends LivingCreature{
   }
   mul() {
     var newcells = this.chooseCell(0);
-    var newCell = random(newcells);
+    var newCell = Math.floor(Math.random() * newcells);;
     if (this.energy >= 8 && newCell) {
       var newPredator = new Predator(newCell[0], newCell[1], this.index);
 
@@ -88,21 +88,21 @@ module.exports =class Predator extends LivingCreature{
       this.energy = 5;
     }
   }
-// mul() {
+  // mul() {
 
-//     if (this.energy >= 12) {
-//         let newCell = random(this.chooseCell(0));
+  //     if (this.energy >= 12) {
+  //         let newCell = random(this.chooseCell(0));
 
-    
-//         if (newCell) {
 
-//             var norXotaker = new Grasseater(newCell[0], newCell[1]);
+  //         if (newCell) {
 
-//             grasseaterArr.push(norXotaker);
-//         }}}
+  //             var norXotaker = new Grasseater(newCell[0], newCell[1]);
+
+  //             grasseaterArr.push(norXotaker);
+  //         }}}
   eat() {
     var result = this.chooseCell(2, 6)
-    var newCell = random(result);
+    var newCell = Math.floor(Math.random() * result);;
 
     if (newCell) {
       this.energy++;
@@ -121,14 +121,14 @@ module.exports =class Predator extends LivingCreature{
           }
         }
       }
-      else if(matrix[newCell[1]][newCell[0]] == 6){
+      else if (matrix[newCell[1]][newCell[0]] == 6) {
         for (var i in mardArr) {
-            if (this.x == mardArr[i].x && this.y == mardArr[i].y) {
-              mardArr.splice(i, 1);
-    
-              break;
-            }
+          if (this.x == mardArr[i].x && this.y == mardArr[i].y) {
+            mardArr.splice(i, 1);
+
+            break;
           }
+        }
       }
     } else {
       this.move();

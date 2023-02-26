@@ -1,15 +1,15 @@
 var LivingCreature = require('./LivingCreature');
 
-module.exports =class Grass extends LivingCreature{
+module.exports = class Grass extends LivingCreature {
 
-  
+
     mul() {
 
         this.multiply++;
+        var newcells = this.chooseCell(0);
+        var newCell = Math.floor(Math.random() * newcells)
 
-        var newCell = random(this.chooseCell(0));
 
-        
 
         if (this.multiply >= 4 && newCell) { //8 er
 
@@ -50,6 +50,6 @@ module.exports =class Grass extends LivingCreature{
 
             }
         }
-       
+
     }
 }

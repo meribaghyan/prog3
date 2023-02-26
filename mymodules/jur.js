@@ -1,5 +1,5 @@
 var LivingCreature = require('./LivingCreature');
-module.exports =class Jur extends LivingCreature {
+module.exports = class Jur extends LivingCreature {
   constructor(x, y, index) {
     super(x, y, index);
     // this.x = x;
@@ -51,9 +51,8 @@ module.exports =class Jur extends LivingCreature {
 
   mul() {
     this.multiply++;
-
-    var newCell = random(this.chooseCell(0));
-
+    var res = this.chooseCell(0)
+    var newCell = Math.floor(Math.random() * res);
     if (this.multiply >= 3 && newCell) {
       var newJur = new Jur(newCell[0], newCell[1], this.index);
 
@@ -66,22 +65,22 @@ module.exports =class Jur extends LivingCreature {
   }
 
   golorshacum() {
-    
-      matrix[this.y][this.x] = 0;
-      for (var i in jurArr) {
-        if (this.x == jurArr[i].x && this.y == jurArr[i].y) {
-          jurArr.splice(i, 1);
-          break;
-        }
+
+    matrix[this.y][this.x] = 0;
+    for (var i in jurArr) {
+      if (this.x == jurArr[i].x && this.y == jurArr[i].y) {
+        jurArr.splice(i, 1);
+        break;
       }
-    
+    }
+
   }
 
   move() {
-    if (this.jermutyun< 100) {
+    if (this.jermutyun < 100) {
       this.jermutyun++;
       var result = this.chooseCell(0);
-      var newCell = random(result);
+      var newCell = Math.floor(Math.random() * result);
 
       if (newCell) {
         let x = newCell[0];

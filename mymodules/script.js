@@ -142,6 +142,7 @@ function drawing(matrix) {
         }
     }
 }
+matrix = drawing(matrix)
 //     for (var i in grassArr) {
 
 //         grassArr[i].mul();
@@ -189,5 +190,4 @@ function drawing(matrix) {
 //     //for (let i in predatorArr) {
 //    ///// //     predatorArr[i].eat1();
 //    // }
-
 

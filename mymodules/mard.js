@@ -1,6 +1,6 @@
 var LivingCreature = require('./LivingCreature');
 
-module.exports =class Mard extends LivingCreature{
+module.exports = class Mard extends LivingCreature {
   constructor(x, y, index) {
     super(x, y, index);
     // this.x = x;
@@ -31,7 +31,7 @@ module.exports =class Mard extends LivingCreature{
   }
   chooseCell(character, character1, character2) {
     this.getNewCoordinates();
-    return super.chooseCell(character, character1, character2 );
+    return super.chooseCell(character, character1, character2);
     // var found = [];
 
     // for (var i in this.directions) {
@@ -66,7 +66,7 @@ module.exports =class Mard extends LivingCreature{
     if (this.energy > 0) {
       this.energy--;
       var result = this.chooseCell(0);
-      var newCell = random(result);
+      var newCell = Math.floor(Math.random() * result);;
 
       if (newCell) {
         let x = newCell[0];
@@ -80,33 +80,33 @@ module.exports =class Mard extends LivingCreature{
       this.die();
     }
   }
-    mul() {
-      var newcells = this.chooseCell(0);
-      var newCell = random(newcells);
-      if (this.energy >= 8 && newCell) {
-        var newMard = new Mard(newCell[0], newCell[1], this.index);
+  mul() {
+    var newcells = this.chooseCell(0);
+    var newCell = Math.floor(Math.random() * newcells);;
+    if (this.energy >= 8 && newCell) {
+      var newMard = new Mard(newCell[0], newCell[1], this.index);
 
-        mardArr.push(newMard);
+      mardArr.push(newMard);
 
-        matrix[newCell[1]][newCell[0]] = 6;
+      matrix[newCell[1]][newCell[0]] = 6;
 
-        this.energy = 5;
-      }
+      this.energy = 5;
     }
-//   mul() {
-//     if (this.energy >= 15) {
-//       let newCell = random(this.chooseCell(0));
+  }
+  //   mul() {
+  //     if (this.energy >= 15) {
+  //       let newCell = random(this.chooseCell(0));
 
-//       if (newCell) {
-//         var norMard = new Mard(newCell[0], newCell[1]);
+  //       if (newCell) {
+  //         var norMard = new Mard(newCell[0], newCell[1]);
 
-//         grasseaterArr.push(norMard);
-//       }
-//     }
-//   }
+  //         grasseaterArr.push(norMard);
+  //       }
+  //     }
+  //   }
   eat() {
     var result = this.chooseCell(1, 2, 4);
-    var newCell = random(result);
+    var newCell = Math.floor(Math.random() * result);;
 
     if (newCell) {
       this.energy++;
@@ -143,4 +143,4 @@ module.exports =class Mard extends LivingCreature{
       this.move();
     }
   }
-}
+} 

@@ -14,11 +14,12 @@ app.get('/', function (req, res) {
 res.redirect('index.html');
 });
 server.listen(3000);
-matrix1 = [];
+matrix = [];
 
 io.on('connection', function (socket) {
-    //reateObject(matrix);
-socket.emit("send matrix",matrix1);
+    createObject(matrix);
+    //game(matrix)
+socket.emit("send matrix",matrix);
 socket.emit("send object",grassArr);
 socket.emit("send object",grasseaterArr);
 socket.emit("send object",mardArr);
@@ -94,25 +95,25 @@ var jurArr = [];
 //var bombArr = [];
 var mardArr = [];
 
- matrix1 = generateMatrix(10, 10, 18, 4, 30, 10, 2);
+ matrix = generateMatrix(10, 10, 18, 4, 30, 10, 2);
 
 
 
 
- function createObject() {  for (var y = 0; y < matrix1.length; y++) {
-        for (var x = 0; x < matrix1[y].length; x++) {
-            if (matrix1[y][x] == 1) {
+ function createObject() {  for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+            if (matrix[y][x] == 1) {
                 let gr = new Grass(x, y);
                 grassArr.push(gr);
-            } else if (matrix1[y][x] == 2) {
+            } else if (matrix[y][x] == 2) {
                 let grE = new Grasseater(x, y);
                 grasseaterArr.push(grE);
             }
-            else if (matrix1[y][x] == 3) {
+            else if (matrix[y][x] == 3) {
                 let pre = new Predator(x, y);
                 predatorArr.push(pre);
             }
-            else if (matrix1[y][x] == 4) {
+            else if (matrix[y][x] == 4) {
                 let ga = new Jur(x, y);
                 jurArr.push(ga);
             }
@@ -120,7 +121,7 @@ var mardArr = [];
            //     let bo = new Bomb(x, y);
             //     bombArr.push(bo);
             // }
-            else if (matrix1[y][x] == 6) {
+            else if (matrix[y][x] == 6) {
                 let ma = new Mard(x, y);
                 mardArr.push(ma);
         }
@@ -129,7 +130,7 @@ var mardArr = [];
 }
  }
 
-createObject()
+
 
 function game() {
     for (var i in grassArr) {
@@ -180,4 +181,4 @@ function game() {
    ///// //     predatorArr[i].eat1();
    // }
    }
-//  game()
+ game(matrix)
