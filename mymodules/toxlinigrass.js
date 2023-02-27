@@ -27,8 +27,8 @@ module.exports = class Grass extends LivingCreature {
 
     eat() {
         var result = this.chooseCell(4)
-        var newCell = random(result);
-
+       
+        var newCell = Math.floor(Math.random() * result);
         if (newCell) {
             this.energy++
             var x = newCell[0];

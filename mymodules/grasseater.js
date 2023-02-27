@@ -73,8 +73,7 @@ super(x, y, index);
         if (this.energy > 0) {
             this.energy--
             var result = this.chooseCell(0)
-            var newCell = random(result);
-
+            var newCell = Math.floor(Math.random() * result);
             if (newCell) {
                 let x = newCell[0];
                 let y = newCell[1];
@@ -89,7 +88,7 @@ super(x, y, index);
     }
     mul() {
         var newcells = this.chooseCell(0)
-        var newCell = random(newcells);
+        var newCell = Math.floor(Math.random() * newcells);
         if (this.energy >= 8  && newCell) { //12 er skzbum
 
         
@@ -106,7 +105,7 @@ super(x, y, index);
     }
     eat() {
         var result = this.chooseCell(1)
-        var newCell = random(result);
+        var newCell = Math.floor(Math.random() * result);
        
         if (newCell) { 
             this.energy++

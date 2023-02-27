@@ -1,12 +1,9 @@
 var socket = io();
 
-
-
-function obj(object) {
-    console.log(object)
-}
-socket.on('send matrix', drawing);
-socket.on('send object', obj);
+socket.on('send matrix', function (data) {
+    drawing(data)
+});
+// socket.on('send object', obj);
 // // function generateMatrix(length, gr, grEa, pre, ga, bo, ma ) {
 // //     let matrix = [];
 
@@ -142,7 +139,7 @@ function drawing(matrix) {
         }
     }
 }
-matrix = drawing(matrix)
+
 //     for (var i in grassArr) {
 
 //         grassArr[i].mul();

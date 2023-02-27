@@ -1,4 +1,4 @@
-var LivingCreature = require('./LivingCreature');
+const LivingCreature = require('./LivingCreature');
 module.exports = class Predator extends LivingCreature {
   constructor(x, y, index) {
     super(x, y, index);
@@ -102,7 +102,7 @@ module.exports = class Predator extends LivingCreature {
   //         }}}
   eat() {
     var result = this.chooseCell(2, 6)
-    var newCell = Math.floor(Math.random() * result);;
+    var newCell = Math.floor(Math.random() * result);
 
     if (newCell) {
       this.energy++;

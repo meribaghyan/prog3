@@ -1,11 +1,9 @@
-var LivingCreature = require('./LivingCreature');
+const LivingCreature = require('./LivingCreature');
 module.exports = class Jur extends LivingCreature {
   constructor(x, y, index) {
     super(x, y, index);
     // this.x = x;
-
     // this.y = y;
-
     // this.index = index;
     this.multiply = 0;
     this.jermutyun = 90;

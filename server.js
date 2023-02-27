@@ -1,33 +1,44 @@
- LivingCreature = require('./mymodules/LivingCreature');
+const LivingCreature = require('./mymodules/LivingCreature');
 
- Jur = require('./mymodules/jur')
- Grass = require('./mymodules/toxlinigrass')
- Predator = require('./mymodules/predator')
- Mard = require('./mymodules/mard')
- Grasseater = require('./mymodules/grasseater')
- express = require('express');
+ Jur = require('./mymodules/jur.js')
+ Grass = require('./mymodules/toxlinigrass.js')
+ Predator = require('./mymodules/predator.js')
+ Mard = require('./mymodules/mard.js')
+ Grasseater = require('./mymodules/grasseater.js')
+
+const express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+
 app.use(express.static("mymodules"));
 app.get('/', function (req, res) {
 res.redirect('index.html');
 });
 server.listen(3000);
+
 matrix = [];
+grassArr = [];
+grasseaterArr = [];
+predatorArr = [];
+jurArr = [];
+//var bombArr = [];
+var mardArr = [];
 
 io.on('connection', function (socket) {
     createObject(matrix);
     //game(matrix)
+    
 socket.emit("send matrix",matrix);
-socket.emit("send object",grassArr);
-socket.emit("send object",grasseaterArr);
-socket.emit("send object",mardArr);
-socket.emit("send object",predatorArr);
-socket.emit("send object",jurArr);
-socket.emit("send object",LivingCreature);
+socket.emit("send grassArr",grassArr);
+socket.emit("send grasseaterArr",grasseaterArr);
+socket.emit("send mardArr",mardArr);
+socket.emit("send predatorArr",predatorArr);
+socket.emit("send jurArr", jurArr);
+socket.emit("send LivingCreature",LivingCreature);
 
 });
+
 function generateMatrix(length, gr, grEa, pre, ga, bo, ma ) {
     let matrix = [];
 
@@ -85,15 +96,6 @@ function generateMatrix(length, gr, grEa, pre, ga, bo, ma ) {
     return matrix;
 
 }
-
-
-
-var grassArr = [];
-var grasseaterArr = [];
-var predatorArr = [];
-var jurArr = [];
-//var bombArr = [];
-var mardArr = [];
 
  matrix = generateMatrix(10, 10, 18, 4, 30, 10, 2);
 
@@ -180,5 +182,6 @@ function game() {
     //for (let i in predatorArr) {
    ///// //     predatorArr[i].eat1();
    // }
+   io.sockets.emit('send matrix', matrix);
    }
- game(matrix)
+ setInterval(game,250)

@@ -54,12 +54,12 @@ module.exports = class Mard extends LivingCreature {
 
   die() {
     matrix[this.y][this.x] = 0;
-    for (var i in mardArr) {
-      if (this.x == mardArr[i].x && this.y == mardArr[i].y) {
-        mardArr.splice(i, 1);
-        break;
-      }
-    }
+    // for (var i in mardArr) {
+    //   if (this.x == mardArr[i].x && this.y == mardArr[i].y) {
+    //     mardArr.splice(i, 1);
+    //     break;
+    //   }
+    // }
   }
 
   move() {
