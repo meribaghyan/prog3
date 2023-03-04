@@ -4,14 +4,17 @@ module.exports = class Grass extends LivingCreature {
 
 
     mul() {
-
         this.multiply++;
         var newcells = this.chooseCell(0);
-        var newCell = Math.floor(Math.random() * newcells)
 
-
-
-        if (this.multiply >= 4 && newCell) { //8 er
+        var newCell = newcells[Math.floor(Math.random() * newcells.length)]
+        
+        
+        
+        
+        
+        if (this.multiply >= 3 && newCell) { //8 er
+           
 
             var newGrass = new Grass(newCell[0], newCell[1], this.index);
 
@@ -28,8 +31,10 @@ module.exports = class Grass extends LivingCreature {
     eat() {
         var result = this.chooseCell(4)
        
-        var newCell = Math.floor(Math.random() * result);
+        var newCell = result[Math.floor(Math.random() * result.length)]
         if (newCell) {
+        
+        
             this.energy++
             var x = newCell[0];
             var y = newCell[1];

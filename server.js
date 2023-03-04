@@ -1,5 +1,6 @@
 const LivingCreature = require('./mymodules/LivingCreature');
 
+
  Jur = require('./mymodules/jur.js')
  Grass = require('./mymodules/toxlinigrass.js')
  Predator = require('./mymodules/predator.js')
@@ -142,6 +143,7 @@ function game() {
 
     } for (let i in grasseaterArr) {
         grasseaterArr[i].eat();
+        
     }
     for (let i in grasseaterArr) {
        grasseaterArr[i].mul();
@@ -185,3 +187,5 @@ function game() {
    io.sockets.emit('send matrix', matrix);
    }
  setInterval(game,250)
+
+

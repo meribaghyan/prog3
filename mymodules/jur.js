@@ -50,7 +50,7 @@ module.exports = class Jur extends LivingCreature {
   mul() {
     this.multiply++;
     var res = this.chooseCell(0)
-    var newCell = Math.floor(Math.random() * res);
+    var newCell = res[Math.floor(Math.random() * res.length)]
     if (this.multiply >= 3 && newCell) {
       var newJur = new Jur(newCell[0], newCell[1], this.index);
 
@@ -78,7 +78,7 @@ module.exports = class Jur extends LivingCreature {
     if (this.jermutyun < 100) {
       this.jermutyun++;
       var result = this.chooseCell(0);
-      var newCell = Math.floor(Math.random() * result);
+      var newCell = result[Math.floor(Math.random() * result.length)]
 
       if (newCell) {
         let x = newCell[0];

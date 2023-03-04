@@ -74,7 +74,7 @@ socket.on('send matrix', function (data) {
 side = 120
 function setup() {
     frameRate(10);
-    createCanvas(40 * side, 30 * side);
+    createCanvas(40 * 50, 30 * side);
     background("#acacac");
 }
 

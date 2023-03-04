@@ -59,6 +59,7 @@ super(x, y, index);
     }
 
     die() {
+    
         matrix[this.y][this.x] = 0
         for (var i in grasseaterArr) {
             if (this.x == grasseaterArr[i].x && this.y == grasseaterArr[i].y) {
@@ -73,7 +74,7 @@ super(x, y, index);
         if (this.energy > 0) {
             this.energy--
             var result = this.chooseCell(0)
-            var newCell = Math.floor(Math.random() * result);
+            var newCell = result[Math.floor(Math.random() * result.length)]
             if (newCell) {
                 let x = newCell[0];
                 let y = newCell[1];
@@ -88,7 +89,7 @@ super(x, y, index);
     }
     mul() {
         var newcells = this.chooseCell(0)
-        var newCell = Math.floor(Math.random() * newcells);
+        var newCell = newcells[Math.floor(Math.random() * newcells.length)]
         if (this.energy >= 8  && newCell) { //12 er skzbum
 
         
@@ -105,7 +106,7 @@ super(x, y, index);
     }
     eat() {
         var result = this.chooseCell(1)
-        var newCell = Math.floor(Math.random() * result);
+        var newCell = result[Math.floor(Math.random() * result.length)]
        
         if (newCell) { 
             this.energy++
