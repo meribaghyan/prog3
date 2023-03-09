@@ -1,65 +1,31 @@
 var socket = io();
+var clear = document.getElementById("clear");//
+var winter = document.getElementById("winter");
+var autumn = document.getElementById("autumn");
+var summer = document.getElementById("summer");
+clear.addEventListener("click", Clear);
+function Clear() {
+    socket.emit("clear")
+}
+winter.addEventListener("click", foo);
+function foo() {
 
-socket.on('send matrix', function (data) {
-    drawing(data)
-});
+    socket.emit("wint", winter)
+}
+summer.addEventListener("click", boo);
+function boo() {
+    socket.emit("sum", summer)
+}
+autumn.addEventListener("click", woo);
+function woo() {
+    socket.emit("aut", autumn)
+}
+// socket.on('send matrix', 'send weather', function (data) {
+//     drawing(data)
+// });
+socket.on('send matrix', drawing);//
+socket.on('send weather', drawing);//
 // socket.on('send object', obj);
-// // function generateMatrix(length, gr, grEa, pre, ga, bo, ma ) {
-// //     let matrix = [];
-
-// //     for (let i = 0; i < length; i++) {
-// //         matrix.push([]);
-
-// //         for (let j = 0; j < length; j++) {
-// //             matrix[i].push(0);
-// //         }
-// //     }
-
-// //     for (let p = 0; p < gr; p++) {
-// //         let x = Math.floor(Math.random() * length);
-// //         let y = Math.floor(Math.random() * length);
-// //         if (matrix[y][x] == 0) {
-// //             matrix[x][y] = 1;
-// //         }
-// //     }
-// //     for (let o = 0; o < grEa; o++) {
-// //         let x = Math.floor(Math.random() * length);
-// //         let y = Math.floor(Math.random() * length);
-// //         if (matrix[y][x] == 0) {
-// //             matrix[x][y] = 2;
-// //         }
-// //     }
-// //     for (let c = 0; c < pre; c++) {
-// //         let x = Math.floor(Math.random() * length);
-// //         let y = Math.floor(Math.random() * length);
-// //         if (matrix[y][x] == 0) {
-// //             matrix[x][y] = 3;
-// //         }
-// //     }
-// //     for (let a = 0; a < ga; a++) {
-// //         let x = Math.floor(Math.random() * length);
-// //         let y = Math.floor(Math.random() * length);
-// //         if (matrix[y][x] == 0) {
-// //             matrix[x][y] = 4;
-// //         }
-// //     }
-// //    /// // for (let b = 0; b < bo; b++) {
-// //         // let x = Math.floor(Math.random() * length);
-// //         // let y = Math.floor(Math.random() * length);
-// //         // if (matrix[y][x] == 0) {
-// //         //     matrix[x][y] = 5;
-// //         // }
-// //     ////// }
-// //     for (let l = 0; l < ma; l++) {
-// //         let x = Math.floor(Math.random() * length);
-// //         let y = Math.floor(Math.random() * length);
-// //         if (matrix[y][x] == 0) {
-// //             matrix[x][y] = 6;
-// //         }
-// //     }
-
-// //     return matrix;
-
 
 // // }
 // // var grassArr = [];
@@ -71,12 +37,13 @@ socket.on('send matrix', function (data) {
 
 // var side = 120;
 // // let matrix = generateMatrix(10, 10, 18, 4, 30, 10, 2);
-side = 120
+side = 35
 function setup() {
-    frameRate(10);
-    createCanvas(40 * 50, 30 * side);
+    frameRate(5);
+    createCanvas(10.05 * side, 10.05 * side);
     background("#acacac");
 }
+let matrix = []
 
 // //     for (var y = 0; y < matrix.length; y++) {
 // //         for (var x = 0; x < matrix[y].length; x++) {
@@ -108,13 +75,20 @@ function setup() {
 // // }}//////////////
 
 
-function drawing(matrix) {
+function drawing(info) {
 
-    for (var y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
+    for (var y = 0; y < info.matrix.length; y++) {
+        for (var x = 0; x < info.matrix[y].length; x++) {
+            if (info.matrix[y][x] == 1) {
+                if (info.weather == "dzmer") {
+                    fill("#d9dede");
+                } else if (info.weather == "amar") {
+                    fill("green");
+                } else if (info.weather == "ashun") {
+                    fill("brown");
+                }
 
-            if (matrix[y][x] == 1) {
-                fill("green");
+
             }
 
             else if (matrix[y][x] == 0) {
@@ -139,6 +113,16 @@ function drawing(matrix) {
         }
     }
 }
+socket.on("grasseater", statistics);
+function statistics(stat) {
+    document.getElementById("grass").innerHTML = stat.grass;
+    document.getElementById("grasseater").innerHTML = stat.grasseater;
+    document.getElementById("predator").innerHTML = stat.predator;
+    document.getElementById("mard").innerHTML = stat.mard;
+    document.getElementById("jur").innerHTML = stat.jur;
+}
+
+
 
 //     for (var i in grassArr) {
 
@@ -172,7 +156,7 @@ function drawing(matrix) {
 //     //     bombArr[i].mul()
 //     //  } for(var i in bombArr) {
 //     //     bombArr[i].eat()
-//    /// //  } 
+//    /// //  }
 //     for (let i in mardArr) {
 //         mardArr[i].mul();
 //     } for (let i in mardArr) {

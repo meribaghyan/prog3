@@ -3,6 +3,7 @@ module.exports = class Grasseater extends LivingCreature{
 
     constructor(x, y, index) {
 super(x, y, index);
+this.mulTime = 20;
         //// this.x = x;
 
        // // this.y = y;
@@ -128,12 +129,15 @@ super(x, y, index);
                 }
 
             }
-        }
-        
-        
-        else {
+            if (this.energy >= this.mulTime) {
+                this.mul()
+            }
+        } else {
             this.move()
         }
+        }
+        
+        
+       
     }
 
-}

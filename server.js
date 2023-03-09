@@ -1,23 +1,29 @@
-const LivingCreature = require('./mymodules/LivingCreature');
 
 
- Jur = require('./mymodules/jur.js')
- Grass = require('./mymodules/toxlinigrass.js')
- Predator = require('./mymodules/predator.js')
- Mard = require('./mymodules/mard.js')
- Grasseater = require('./mymodules/grasseater.js')
+
+// Jur = require('./mymodules/jur.js')
+// Grass = require('./mymodules/toxlinigrass.js')
+// Predator = require('./mymodules/predator.js')
+// Mard = require('./mymodules/mard.js')
+// Grasseater = require('./mymodules/grasseater.js')
 
 const express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-
+var fs = require("fs");
 app.use(express.static("mymodules"));
 app.get('/', function (req, res) {
-res.redirect('index.html');
+    res.redirect('index.html');
 });
 server.listen(3000);
-
+stat = {
+    grasseater: 0,
+    grass: 0,
+    predator: 0,
+    jur: 0,
+    mard: 0,
+}
 matrix = [];
 grassArr = [];
 grasseaterArr = [];
@@ -25,22 +31,29 @@ predatorArr = [];
 jurArr = [];
 //var bombArr = [];
 var mardArr = [];
+const LivingCreature = require('./mymodules/LivingCreature');//consty
+Jur = require('./mymodules/jur.js')
+Grass = require('./mymodules/toxlinigrass.js')
+Predator = require('./mymodules/predator.js')
+Mard = require('./mymodules/mard.js')
+Grasseater = require('./mymodules/grasseater.js')
 
-io.on('connection', function (socket) {
-    createObject(matrix);
-    //game(matrix)
-    
-socket.emit("send matrix",matrix);
-socket.emit("send grassArr",grassArr);
-socket.emit("send grasseaterArr",grasseaterArr);
-socket.emit("send mardArr",mardArr);
-socket.emit("send predatorArr",predatorArr);
-socket.emit("send jurArr", jurArr);
-socket.emit("send LivingCreature",LivingCreature);
 
-});
+// io.on('connection', function (socket) {
+//     createObject(matrix);
+//     //game(matrix)
 
-function generateMatrix(length, gr, grEa, pre, ga, bo, ma ) {
+//     socket.emit("send matrix", matrix);
+//     socket.emit("send grassArr", grassArr);
+//     socket.emit("send grasseaterArr", grasseaterArr);
+//     socket.emit("send mardArr", mardArr);
+//     socket.emit("send predatorArr", predatorArr);
+//     socket.emit("send jurArr", jurArr);
+//     socket.emit("send LivingCreature", LivingCreature);
+
+// });
+
+function generateMatrix(length, gr, grEa, pre, ga, bo, ma) {
     let matrix = [];
 
     for (let i = 0; i < length; i++) {
@@ -79,12 +92,12 @@ function generateMatrix(length, gr, grEa, pre, ga, bo, ma ) {
             matrix[x][y] = 4;
         }
     }
-   /// // for (let b = 0; b < bo; b++) {
-        // let x = Math.floor(Math.random() * length);
-        // let y = Math.floor(Math.random() * length);
-        // if (matrix[y][x] == 0) {
-        //     matrix[x][y] = 5;
-        // }
+    /// // for (let b = 0; b < bo; b++) {
+    // let x = Math.floor(Math.random() * length);
+    // let y = Math.floor(Math.random() * length);
+    // if (matrix[y][x] == 0) {
+    //     matrix[x][y] = 5;
+    // }
     ////// }
     for (let l = 0; l < ma; l++) {
         let x = Math.floor(Math.random() * length);
@@ -98,12 +111,13 @@ function generateMatrix(length, gr, grEa, pre, ga, bo, ma ) {
 
 }
 
- matrix = generateMatrix(10, 10, 18, 4, 30, 10, 2);
+matrix = generateMatrix(10, 10, 18, 4, 30, 10, 2);
 
 
 
 
- function createObject() {  for (var y = 0; y < matrix.length; y++) {
+function createObject() {
+    for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
                 let gr = new Grass(x, y);
@@ -121,17 +135,17 @@ function generateMatrix(length, gr, grEa, pre, ga, bo, ma ) {
                 jurArr.push(ga);
             }
             // else if (matrix[y][x] == 5) {
-           //     let bo = new Bomb(x, y);
+            //     let bo = new Bomb(x, y);
             //     bombArr.push(bo);
             // }
             else if (matrix[y][x] == 6) {
                 let ma = new Mard(x, y);
                 mardArr.push(ma);
+            }
         }
-    }
 
+    }
 }
- }
 
 
 
@@ -141,51 +155,121 @@ function game() {
         grassArr[i].mul();
 
 
-    } for (let i in grasseaterArr) {
+    } stat.grass = i;
+
+    for (let i in grasseaterArr) {
         grasseaterArr[i].eat();
-        
+
     }
     for (let i in grasseaterArr) {
-       grasseaterArr[i].mul();
-    }
+        grasseaterArr[i].mul();
+    }  stat.grasseater = i;
     for (let i in predatorArr) {
         predatorArr[i].mul();
     }
     for (let i in predatorArr) {
         predatorArr[i].eat();
-    }
+    } stat.predator = i;
+    
+    for (var i in grassArr) {
+        grassArr[i].eat();
+    }stat.grass = i;
     for (let i in jurArr) {
         jurArr[i].mul();
-    } for (var i in grassArr) {
-        grassArr[i].eat();
-    }
+    } 
     for (var i in jurArr) {
         jurArr[i].golorshacum();
     }
-    for(var i in jurArr) {
+    for (var i in jurArr) {
         jurArr[i].mul()
-    }
-   /// // for(var i in bombArr) {
+    }stat.jur = i;
+    /// // for(var i in bombArr) {
     //     bombArr[i].mul()
     //  } for(var i in bombArr) {
     //     bombArr[i].eat()
-   /// //  } 
+    /// //  } 
     for (let i in mardArr) {
         mardArr[i].mul();
-    } for (let i in mardArr) {
-         mardArr[i].eat();
+    
     }
-   /// // for (let i in mardArr) {
-     //   mardArr[i].chash();
+     for (let i in mardArr) {
+        mardArr[i].eat();
+    }stat.mard = i;
+    /// // for (let i in mardArr) {
+    //   mardArr[i].chash();
     //}
     //for (let i in mardArr) {
-       // mardArr[i].yntriq();
+    // mardArr[i].yntriq();
     //}
     //for (let i in predatorArr) {
-   ///// //     predatorArr[i].eat1();
-   // }
-   io.sockets.emit('send matrix', matrix);
-   }
- setInterval(game,250)
+    ///// //     predatorArr[i].eat1();
+    // }
+    io.sockets.emit('send matrix', info);
+    io.sockets.emit('grasseater', stat);
+}
+setInterval(game, 250)
+
+info = {
+    matrix: matrix,
+    weather: "amar",
+}
+function hiver(winter) {
+    info.weather = "dzmer";
+    for (var i in grassArr) {
+        grassArr[i].mulTime = 14;
+      }
+    io.sockets.emit("send weather", info);
+}
+function ete() {
+    info.weather = "amar";
+    for (var i in grasseaterArr) {
+        grasseaterArr[i].mulTime = 6;
+      }
+    io.sockets.emit("send weather", info);
+}
+
+function aut() {
+    info.weather = "ashun";
+    for (var i in predatorArr) {
+        predatorArr[i].mulTime = 5;
+      }
+    io.sockets.emit("send weather", info);
+}
+function Clear() {
+    grassArr = [];
+    grasseaterArr = [];
+    predatorArr = [];
+    mardArr = [];
+    jurArr = [];
 
 
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+            matrix[y][x] = 0;
+        }
+    }  
+    io.sockets.emit("ffff", matrix);
+}
+io.on("connection", function (socket) {
+    createObject();
+    socket.on("wint", hiver);
+    socket.on("sum", ete);
+
+    socket.on("aut", aut);   
+    socket.on("clear", Clear);
+
+});
+
+// io.on('connection', function (socket) {
+//     createObject(matrix);
+//     //game(matrix)
+
+//     socket.emit("send matrix", matrix);
+//     socket.emit("send grassArr", grassArr);
+//     socket.emit("send grasseaterArr", grasseaterArr);
+//     socket.emit("send mardArr", mardArr);
+//     socket.emit("send predatorArr", predatorArr);
+//     socket.emit("send jurArr", jurArr);
+//     socket.emit("send LivingCreature", LivingCreature);
+
+// });

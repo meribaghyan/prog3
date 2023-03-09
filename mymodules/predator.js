@@ -8,6 +8,7 @@ module.exports = class Predator extends LivingCreature {
     // this.index = index;
     this.energy = 8;
     // this.directions = [];
+     this.mulTime = 20;
   }
   getNewCoordinates() {
     this.directions = [
@@ -131,6 +132,9 @@ module.exports = class Predator extends LivingCreature {
           }
         }
       }
+      if (this.energy >= this.mulTime ) {
+        this.mul()
+    }
     } else {
       this.move();
     }
